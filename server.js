@@ -4,7 +4,7 @@ const path = require("path");
 
 // Setting up .env
 require("dotenv").config();
-const PORT = process.env.DATABASE_URL || 3000;
+const PORT = process.env.PORT || 3000;
 
 //View Engine Setup
 app.set("view engine", "ejs");
@@ -12,14 +12,14 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 // Connecting to MongoDB
-// const mongoose = require("mongoose");
-// mongoose.connect(
-//   `mongodb+srv://root:root@mndp.ygn8ieu.mongodb.net/?retryWrites=true&w=majority`
-// );
-// const db = mongoose.connection;
+const mongoose = require("mongoose");
+mongoose.connect(
+  `mongodb+srv://root:root@mndp.ygn8ieu.mongodb.net/?retryWrites=true&w=majority`
+);
+const db = mongoose.connection;
 
-// db.on("error", (error) => console.error(error));
-// db.once("open", () => console.log(`Connected to the database`));
+db.on("error", (error) => console.error(error));
+db.once("open", () => console.log(`Connected to the database`));
 
 //Multer Setup
 var multer = require("multer");
