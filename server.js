@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // Connecting to MongoDB
 const mongoose = require("mongoose");
 mongoose.connect(
-  `mongodb+srv://root:root@mndp.ygn8ieu.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://birajgtm:Dcml2CrR2EJSDwr1@madsclass.rgddjin.mongodb.net/?retryWrites=true&w=majority`
 );
 const db = mongoose.connection;
 
