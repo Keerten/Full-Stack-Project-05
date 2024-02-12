@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bhansa Ghar - Nepali Food Restaurant</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4d6cc;
+      }
+
+      header {
+        background-color: #64170f;
+        color: white;
+        text-align: center;
+        padding: 1em;
+      }
+
+      .title {
+        color: #d35400;
+        padding: 4px;
+        border-radius: 6px;
+        box-shadow: 0px 16px 15px 0px rgb(247 138 138 / 36%);
+        text-align: center;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-around;
+        background-color: #e74c3c; /* Dark orange navigation bar */
+        padding: 0.5em;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      nav a:hover {
+        background-color: #64170f; /* Lighter orange on hover */
+      }
+
+      .top-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 2em;
+      }
+
+      .menu-item {
+        flex: 0 0 40%;
+        margin: 1em;
+        padding: 1em;
+        background-color: white;
+        border: 2px solid #f2c8b9;
+        border-radius: 12px; /* Rounder corners */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.3s;
+      }
+
+      .menu-item:hover {
+        transform: scale(1.05);
+      }
+
+      .menu-item img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .menu-name {
+        margin: 10px 0;
+        font-weight: bold;
+        font-size: large;
+      }
+
+      .description {
+        font-style: italic;
+        color: #e68967;
+      }
+
+      .menu-item span {
+        color: #888;
+      }
+
+      form {
+        margin: 2em;
+        text-align: center;
+        background-color: #e74c3c; /* Red form background */
+        padding: 1em;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+
+.order{
+    display: flex;
+    align-items: center;
+        justify-content: center;
+}
+      .order-section {
+        padding: 15px;
+        display: flex;
+           flex-direction: column;
+        width: 35%;
+        
+        
+      }
+
+      .order-section img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+         padding: 5px;
+        width: 70%;
+      }
+
+      form label {
+        color: whitesmoke;
+      }
+
+      form label,
+      form select,
+      form button {
+        margin: 5px;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      form input,
+      form select {
+        padding: 10px;
+        font-size: 16px;
+        border: 3px solid #f2c8b9; /* Coral border */
+        border-radius: 5px;
+      }
+
+      form button {
+        background-color: #64170f; /* Dark orange button */
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      form button:hover {
+        background-color: #e67e22; /* Lighter orange on hover */
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        background-color: #64170f; /* Dark orange footer */
+        color: white;
+        padding: 1em;
+        bottom: 0;
+      }
+
+      .social-icons {
+        display: flex;
+      }
+
+      .social-icons div {
+        color: #3498db; /* Blue F icon */
+        margin-right: 10px;
+      }
+
+      .social-icons span {
+        color: #fff; /* White X icon */
+        margin-right: 10px;
+      }
+
+      .social-icons a:hover {
+        color: #c0392b;
+      }
+
+      .location-section,
+      .check-order-section {
+        padding: 1em;
+        text-align: center;
+      }
+
+      .location-details {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1em;
+      }
+
+      .location-details div {
+        flex: 1;
+        margin: 1em;
+        padding: 1em;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s;
+      }
+
+      .location-details div p {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>~ Bhansa Ghar ~</h1>
+    </header>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Order Status</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+    </nav>
+    <h2 class="title">Menu Items</h2>
+    <section class="top-section">
+      <% menuItems.forEach((menuItem) => { %>
+      <div class="menu-item">
+        <img src="<%= menuItem.imgURI %>" alt="<%= menuItem.name %>" />
+        <p class="menu-name">~<%= menuItem.name %>~</p>
+        <p class="description"><%= menuItem.description %></p>
+        <span>Price: $<%= menuItem.price.toFixed(2) %></span>
+      </div>
+      <% }) %>
+    </section>
+    <h2 class="title">Make an Order</h2>
+    <form action="/order" method="post">
+             <div class="order"> 
+      <div class="order-section">
+        <label for="orderItem">Select Item to Order:</label>
+        <select id="orderItem" name="orderItem">
+          <% menuItems.forEach((menuItem) => { %>
+          <option value="<%= menuItem.id %>">
+            <%= menuItem.name %> - $<%= menuItem.price.toFixed(2) %>
+          </option>
+          <% }) %>
+        </select>
+
+        <label for="customerName">Your Name:</label>
+        <input type="text" id="customerName" name="customerName" required />
+
+        <label for="customerAddress">Your Address:</label>
+        <input
+          type="text"
+          id="customerAddress"
+          name="customerAddress"
+          required
+        />
+      </div>
+      <div class="order-section">
+        <img src="https://media.istockphoto.com/id/990557050/vector/order-now-banner-badge-icon-vector-illustration-business-concept-order-now-pictogram.jpg?s=612x612&w=0&k=20&c=cLp_Yl5pDXL6a8m7IKVQhGXhUgMs9KGmX-9MpWUd9s4=" alt="">
+      </div>
+    </div>
+      <button type="submit">Place Order</button>
+    </form>
+
+    <section class="location-section">
+      <h2 class="title">Visit Us</h2>
+      <div class="location-details">
+        <div>
+          <h3>Durbarmarg</h3>
+          <p>Kathmandu, Nepal</p>
+        </div>
+        <div>
+          <h3>Opening Hours</h3>
+          <p>Monday - Sunday: 10:00 AM - 10:00 PM</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="check-order-section">
+      <h2 class="title">Check Order Status</h2>
+      <form action="/check-status" method="post">
+        <label for="orderId">Enter Order ID:</label>
+        <input type="text" id="orderId" name="orderId" required />
+        <button type="submit">Check Status</button>
+      </form>
+    </div>
+
+    <footer>
+      <div class="social-icons">
+        <div>F</div>
+        <div>X</div>
+        <div>Y</div>
+      </div>
+      <div>&copy; Bhansa Ghar Restaurant</div>
+    </footer>
+  </body>
+</html>

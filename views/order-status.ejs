@@ -1,0 +1,91 @@
+<!-- order-details.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Details</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4d6cc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      main {
+        text-align: center;
+      }
+
+      h1 {
+        background-color: #64170f;
+        color: white;
+        padding: 15px;
+        border-radius: 6px;
+        box-shadow: 0px 16px 15px 0px rgb(247 138 138 / 36%);
+      }
+
+      div {
+        background-color: white;
+        margin: 10px;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        text-align: left;
+        display: inline-block;
+        width: 300px;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      li {
+        margin: 5px 0;
+      }
+
+      p {
+        margin: 10px 0;
+      }
+
+      .error {
+        color: #ff4d4d;
+        font-weight: bold;
+        border: 2px solid #ff4d4d;
+        border-radius: 6px;
+        padding: 10px;
+        background-color: #ffe5e5;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Order Details</h1>
+      <% if (orderStatus) { %>
+      <div>
+        <h3>Customer Name:</h3>
+        <p><%= orderStatus.custName %></p>
+        <h3>Delivery Address:</h3>
+        <p><%= orderStatus.deliveryAddr %></p>
+        <h3>Items Ordered:</h3>
+        <ul>
+          <% orderStatus.itemsOrdered.forEach(item => { %>
+          <li><%= item %></li>
+          <% }) %>
+        </ul>
+        <h3>Order Time:</h3>
+        <p><%= orderStatus.orderTime %></p>
+        <h3>Order Status:</h3>
+        <p><%= orderStatus.orderStatus %></p>
+      </div>
+      <% } else { %>
+      <p class="error">Error: <%= error %></p>
+      <% } %>
+    </main>
+  </body>
+</html>
