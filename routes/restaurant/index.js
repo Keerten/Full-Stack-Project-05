@@ -48,12 +48,9 @@ router.post("/order", async (req, res) => {
 
  const menuItems = [];
 
-// Use for...of to iterate through the array of menu item IDs
 try {
   for (const id of itemsOrdered) {
     const menu = await menuItem.findById(id).exec();
-    
-    // Push an object with desired properties (name, price, id) to the array
     menuItems.push({
       id: menu._id,
       name: menu.name,
@@ -61,8 +58,7 @@ try {
     });
   }
 } catch (error) {
-  console.error("Error fetching Menu Items:", error);
-  res.status(500).json({ error: "Error fetching Menu Items" });
+  res.status(500).json({ error: "Error fetching Menu Item" });
 }
 
 const orderDetails = {
@@ -74,15 +70,28 @@ const orderDetails = {
 };
 
 try {
-  console.log("In /order try block")
+  // console.log("In /order try block")
   const createOrder = new orderData(orderDetails);
   await createOrder.save();
-  return res.send(JSON.stringify(createOrder));
-  //return res.redirect("/check")
+  // Redirect to "/order-completed" with orderId and error as query parameters
+  return res.redirect(`/order-completed?orderId=${createOrder._id}&error=null`);
 } catch (error) {
-  console.log("In /order catch block")
-  res.status(500).json({ error: "Error Saving order!" });
+  // Redirect to "/order-completed" with error as a query parameter
+  res.redirect(`/order-completed?error=${encodeURIComponent(`Sorry! Error making the order! ${error}`)}`);
 }
+});
+
+router.get("/order-completed", async (req, res) => {
+  const id = req.query.orderId;
+  const error = req.query.error;
+
+  try {
+  const data = await orderData.findById(id).exec();
+  res.render("order-completed", {order: data, error:error});
+  }
+  catch(error){
+    res.render("order-completed", {order: null, error:`Sorry! Error making the order! ${error}`});
+  }
 });
 
 router.post("/check-status", async (req, res) => {
@@ -95,13 +104,13 @@ router.post("/check-status", async (req, res) => {
     } else {
       res.render("order-status", {
         orderStatus: null,
-        error: `Sorry! No such order with ID : "${id}" found!`,
+        error: `Sorry! No such order with ID : "${id}" found! ${error}`,
       });
     }
   } catch (error) {
     res.render("order-status", {
       orderStatus: null,
-      error: `Sorry! No such order with ID : "${id}" found!`,
+      error: `Sorry! No such order with ID : "${id}" found! ${error}`,
     });
   }
 });
