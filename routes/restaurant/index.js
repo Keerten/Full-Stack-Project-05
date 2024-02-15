@@ -96,7 +96,7 @@ router.get("/order-completed", async (req, res) => {
 
 router.post("/check-status", async (req, res) => {
   const id = req.body.orderId;
-  console.log(id);
+  // console.log(id);
   try {
     const orderDetails = await orderData.findById(id).exec();
     if (orderDetails) {
