@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        display: flex;
+      }
+      nav {
+        flex: 1;
+        height: 7.5vh;
+        background-color: #ff6400;
+        color: #ffffff;
+        position: sticky;
+        top: 0;
+      }
+      div {
+      }
+      .sidebar {
+        background-color: #ff660087;
+        color: #ffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        /* align-items: center; */
+        flex: 1;
+        position: sticky;
+        top: 7.5vh; /* same as nav's height */
+        height: 92.5vh;
+        padding: 10px 10px 0 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        padding: 0 10%;
+        margin: 1% 0;
+        font-weight: bold;
+        font-size: large;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border: 1px solid #ffd7bc;
+        border-radius: 15px;
+      }
+
+      a:hover {
+        background-color: #ffd7bc;
+        border-radius: 15px;
+        color: #ff6400;
+      }
+      a.active {
+        background-color: #ffd7bc;
+        border-radius: 30px;
+        color: #ff6400;
+      }
+
+      .main-wrapper {
+        flex: 4;
+        overflow-y: scroll;
+        scrollbar-color: none;
+        padding: 10px;
+        color: #ff6400;
+        text-align: justify;
+      }
+
+      img {
+        height: 40px;
+        width: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav></nav>
+    <main>
+      <div class="sidebar">
+        <h2>Hello <%= user.name %></h2>
+        <a href="/delivery"
+          ><img src="open-order.png" alt="Open Order" />
+          <p>Open Orders</p></a
+        >
+        <a class="active" href="delivery/ongoing-delivery">
+          <img src="motorbike.png" alt="Ongoing Delivery" />
+          <p>Ongoing Delivery</p></a
+        >
+
+        <a href="my-deliveries"
+          ><img src="delivery.png" alt="My Deliveries" />
+          <p>My Deliveries</p></a
+        >
+      </div>
+      <div class="main-wrapper">
+        <% if (messages.error) { %>
+        <div class="error"><%= messages.error %></div>
+        <% } %> <% if (messages.success) { %>
+        <div class="success"><%= messages.success %></div>
+        <% } %> <% if (order) { %>
+
+        <ul>
+          <li><%= order.custName %></li>
+          <li><%= order.deliveryAddr %></li>
+          <li><%= new Date(order.orderTime).toLocaleString() %></li>
+        </ul>
+
+        <h5>Done with your delivery ? Submit delivery Image here:</h5>
+        <form
+          action="/delivery/open-deliveries/deliver/<%= order.id %>"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input type="file" id="myFile" name="proof" />
+          <input type="submit" />
+        </form>
+        <% } else { %>
+        <h2>You do not have any ongoing order !</h2>
+        <% } %>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

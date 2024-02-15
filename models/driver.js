@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const driverSchema = new mongoose.Schema({
   username: {
-    type: Number,
+    type: String,
     required: true,
   },
   name: {
