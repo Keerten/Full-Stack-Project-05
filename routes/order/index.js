@@ -7,9 +7,9 @@ const Driver = require("../../models/driver");
 router.get("/", async (req, res) => {
   try {
     const orders = await Order.find().populate("menu");
-    const menu = await Menu.find().populate("driver");
-    const driver = await Driver.find();
-    return res.render("home", { orders, menu, driver });
+    // const menu = await Menu.find().populate("driver");
+    // const driver = await Driver.find();
+    return res.render("manage", { orders });
   } catch (err) {
     console.error(err);
     return res.status(500).send("An error occurred while fetching orders.");
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 
 router.post("/search", async (req, res) => {
   const orders = await Order.find({ custName: req.body.custName });
-  return res.render("home", { orders });
+  return res.render("manage", { orders });
 });
 
 router.post("/update_status", async (req, res) => {
@@ -29,7 +29,7 @@ router.post("/update_status", async (req, res) => {
 });
 
 router.get("/completed_orders", async (req, res) => {
-  const orders = await Order.find({ orderStatus: "completed" });
+  const orders = await Order.find({ orderStatus: "delivered" });
   return res.render("completed_orders", { orders });
 });
 

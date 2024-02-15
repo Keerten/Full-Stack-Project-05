@@ -43,26 +43,22 @@
             item.itemsOrdered._id %> <% } %>
           </p>
           <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
-          <!-- <p>
-            <strong>Update Status:</strong>
-          </p> -->
 
           <form action="/manage/update_status" method="post">
             <input type="hidden" value="<%= order._id %>" name="order_id" />
             <label for="orderStatus">Update Status:</label>
             <select name="orderStatus">
-              <option value="pending">Pending</option>
+              <option value="readyfordelivery">Ready For Delivery</option>
+              <option value="intransit">In Transit</option>
               <option value="delivered">Delivered</option>
-              <option value="completed">Completed</option>
             </select>
             <button type="submit">Update</button>
           </form>
-          <p><strong>Driver:</strong> <%= order.itemsOrdered._id %></p>
-          <p>
-            <strong>License Plate:</strong> <%= order.driver_license_plate %>
-          </p>
+          <p><%= order%></p>
+          <p><strong>Driver:</strong> <%= order.name %></p>
+          <p><strong>License Plate:</strong> <%= order.license_plate %></p>
+          <% } %>
         </li>
-        <% } %>
       </ul>
     </div>
     <footer>

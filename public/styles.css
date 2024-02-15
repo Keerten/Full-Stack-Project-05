@@ -68,10 +68,6 @@ nav a:hover {
   transition: transform 0.3s;
 }
 
-.order-status:hover {
-  transform: scale(1.01);
-}
-
 footer {
   display: flex;
   justify-content: space-between;
