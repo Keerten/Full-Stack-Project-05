@@ -39,8 +39,8 @@
           <p><strong>Order Time:</strong> <%= order.orderTime %></p>
 
           <p>
-            <strong>Order Total:</strong> <% for (let item of orders) { %> <%=
-            item.itemsOrdered._id %> <% } %>
+            <strong>Order Total:</strong> <% let total = 0; for (let item of
+            order.itemsOrdered) { total += item.price; }%> $<%= total %>
           </p>
           <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
 
@@ -48,16 +48,21 @@
             <input type="hidden" value="<%= order._id %>" name="order_id" />
             <label for="orderStatus">Update Status:</label>
             <select name="orderStatus">
-              <option value="readyfordelivery">Ready For Delivery</option>
-              <option value="intransit">In Transit</option>
-              <option value="delivered">Delivered</option>
+              <option value="READY FOR DELIVERY">Ready For Delivery</option>
+              <option value="IN TRANSIT">In Transit</option>
+              <option value="DELIVERED">Delivered</option>
             </select>
             <button type="submit">Update</button>
           </form>
-          <p><%= order%></p>
-          <p><strong>Driver:</strong> <%= order.name %></p>
-          <p><strong>License Plate:</strong> <%= order.license_plate %></p>
-          <% } %>
+          <% if (order.orderStatus === 'IN TRANSIT') { %>
+          <p>
+            <strong>Driver:</strong>
+          </p>
+          <p>
+            <strong>Driver's License Plate:</strong>
+          </p>
+
+          <% } %> <% } %>
         </li>
       </ul>
     </div>

@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const Order = require("../../models/order");
-const Menu = require("../../models/menu");
 const Driver = require("../../models/driver");
 
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find().populate("menu");
-    // const menu = await Menu.find().populate("driver");
-    // const driver = await Driver.find();
+    const orders = await Order.find().populate("driver");
+    console.log(orders);
     return res.render("manage", { orders });
   } catch (err) {
     console.error(err);

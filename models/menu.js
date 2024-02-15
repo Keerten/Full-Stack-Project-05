@@ -8,7 +8,6 @@ const menuItemsSchema = new Schema({
   imgURI: String,
   description: String,
   price: Number,
-  driver: { type: mongoose.Schema.Types.ObjectId, ref: "Driver" },
 });
 
 const Menu = mongoose.model("menu_item_collection", menuItemsSchema);
