@@ -41,28 +41,55 @@ router.get("/", async (req, res) => {
 // Create order route
 router.post("/order", async (req, res) => {
   const time = new Date();
-  // If orderItem is not an array, convert it to an array with a single element
-  const itemsOrdered = Array.isArray(req.body.orderItem)
-    ? req.body.orderItem
-    : [req.body.orderItem];
+
+ const itemsOrdered = Array.isArray(req.body.orderItem)
+ ? req.body.orderItem
+ : [req.body.orderItem];
+
+ const menuItems = [];
+
+// Use for...of to iterate through the array of menu item IDs
+try {
+  for (const id of itemsOrdered) {
+    const menu = await menuItem.findById(id).exec();
     
-  const orderDetails = {
-    custName: req.body.customerName,
-    deliveryAddr: req.body.customerAddress,
-    itemsOrdered: itemsOrdered,
-    orderTime: time,
-    orderStatus: "RECEIVED",
-  };
-  res.send(JSON.stringify(orderDetails));
+    // Push an object with desired properties (name, price, id) to the array
+    menuItems.push({
+      id: menu._id,
+      name: menu.name,
+      price: menu.price,
+    });
+  }
+} catch (error) {
+  console.error("Error fetching Menu Items:", error);
+  res.status(500).json({ error: "Error fetching Menu Items" });
+}
+
+const orderDetails = {
+ custName: req.body.customerName,
+ deliveryAddr: req.body.customerAddress,
+ itemsOrdered: menuItems,
+ orderTime: time,
+ orderStatus: "RECEIVED",
+};
+
+try {
+  console.log("In /order try block")
+  const createOrder = new orderData(orderDetails);
+  await createOrder.save();
+  return res.send(JSON.stringify(createOrder));
+  //return res.redirect("/check")
+} catch (error) {
+  console.log("In /order catch block")
+  res.status(500).json({ error: "Error Saving order!" });
+}
 });
 
 router.post("/check-status", async (req, res) => {
   const id = req.body.orderId;
   console.log(id);
   try {
-    console.log("In Try block");
     const orderDetails = await orderData.findById(id).exec();
-    console.log("order details", orderDetails);
     if (orderDetails) {
       res.render("order-status", { orderStatus: orderDetails, error: null });
     } else {
@@ -72,7 +99,6 @@ router.post("/check-status", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("In catch block");
     res.render("order-status", {
       orderStatus: null,
       error: `Sorry! No such order with ID : "${id}" found!`,
