@@ -40,14 +40,19 @@ router.get("/", async (req, res) => {
 // Create order route
 router.post("/order", async (req, res) => {
   const time = new Date();
-  const orderItem = {
+  // If orderItem is not an array, convert it to an array with a single element
+  const itemsOrdered = Array.isArray(req.body.orderItem)
+    ? req.body.orderItem
+    : [req.body.orderItem];
+    
+  const orderDetails = {
     custName: req.body.customerName,
     deliveryAddr: req.body.customerAddress,
-    itemsOrdered: [req.body.orderItem],
+    itemsOrdered: itemsOrdered,
     orderTime: time,
     orderStatus: "RECEIVED",
   };
-  res.send(JSON.stringify(orderItem));
+  res.send(JSON.stringify(orderDetails));
 });
 
 router.post("/check-status", async (req, res) => {
