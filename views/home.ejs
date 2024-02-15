@@ -2,50 +2,76 @@
 <html>
   <head>
     <title>Restaurant Management</title>
-    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <link rel="stylesheet" href="/styles.css" type="text/css" />
   </head>
   <body>
-    <h1>Current Orders</h1>
-    <form action="/search" method="post">
-      <input
-        type="text"
-        name="customer_name"
-        placeholder="Search by customer name"
-      />
-      <button type="submit">Search</button>
-    </form>
-    <table>
-      <tr>
-        <th>Customer Name</th>
-        <th>Customer Address</th>
-        <th>Order Date</th>
-        <th>Order Total</th>
-        <th>Driver Name</th>
-        <th>Driver License Plate</th>
-        <th>Order Status</th>
-        <th>Update Status</th>
-      </tr>
-      <% for (let order of orders) { %>
-      <tr>
-        <td><%= order.customer_name %></td>
-        <td><%= order.customer_address %></td>
-        <td><%= order.order_date %></td>
-        <td><%= order.order_total %></td>
-        <td><%= order.driver_name %></td>
-        <td><%= order.driver_license_plate %></td>
-        <td><%= order.order_status %></td>
-        <td>
-          <form action="/update_status/<%= order._id %>" method="post">
-            <select name="order_status">
+    <header>
+      <h1>~ Bhansa Ghar ~</h1>
+    </header>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Order Status</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+    </nav>
+    <h2 class="title">Order Status</h2>
+    <div class="order-box">
+      <form action="/manage/search" method="post">
+        <input
+          type="text"
+          name="custName"
+          placeholder="Search by customer name"
+        />
+        <button type="submit">Search</button>
+      </form>
+      <a href="/manage/completed_orders/">
+        <button>Completed Orders</button>
+      </a>
+    </div>
+
+    <div class="order-status">
+      <ul>
+        <% for (let order of orders) { %>
+        <li>
+          <h2><%= order.custName %></h2>
+          <p><strong>Address:</strong> <%= order.deliveryAddr %></p>
+          <p><strong>Order Time:</strong> <%= order.orderTime %></p>
+
+          <p>
+            <strong>Order Total:</strong> <% for (let item of orders) { %> <%=
+            item.itemsOrdered._id %> <% } %>
+          </p>
+          <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
+          <!-- <p>
+            <strong>Update Status:</strong>
+          </p> -->
+
+          <form action="/manage/update_status" method="post">
+            <input type="hidden" value="<%= order._id %>" name="order_id" />
+            <label for="orderStatus">Update Status:</label>
+            <select name="orderStatus">
               <option value="pending">Pending</option>
               <option value="delivered">Delivered</option>
               <option value="completed">Completed</option>
             </select>
             <button type="submit">Update</button>
           </form>
-        </td>
-      </tr>
-      <% } %>
-    </table>
+          <p><strong>Driver:</strong> <%= order.itemsOrdered._id %></p>
+          <p>
+            <strong>License Plate:</strong> <%= order.driver_license_plate %>
+          </p>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    <footer>
+      <div class="social-icons">
+        <div>F</div>
+        <div>X</div>
+        <div>Y</div>
+      </div>
+      <div>&copy; Bhansa Ghar Restaurant</div>
+    </footer>
   </body>
 </html>

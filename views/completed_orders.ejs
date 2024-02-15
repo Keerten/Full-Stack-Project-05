@@ -2,31 +2,50 @@
 <html>
   <head>
     <title>Completed Orders</title>
+    <link rel="stylesheet" href="/completed.css" type="text/css" />
   </head>
   <body>
-    <h1>Completed Orders</h1>
-    <table>
-      <tr>
-        <th>Customer Name</th>
-        <th>Customer Address</th>
-        <th>Order Date</th>
-        <th>Order Total</th>
-        <th>Driver Name</th>
-        <th>Driver License Plate</th>
-        <th>Order Status</th>
-      </tr>
-      <% orders.forEach(order => { %>
-      <tr>
-        <td><%= order.customer_name %></td>
-        <td><%= order.customer_address %></td>
-        <td><%= order.order_date %></td>
-        <td><%= order.order_total %></td>
-        <td><%= order.driver_name %></td>
-        <td><%= order.driver_license_plate %></td>
-        <td><%= order.order_status %></td>
-      </tr>
-      <% }) %>
-    </table>
-    <a href="/">Back to Home</a>
+    <header>
+      <h1>~ Bhansa Ghar ~</h1>
+    </header>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Order Status</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+    </nav>
+    <h2 class="title">Completed Orders</h2>
+    <div class="order-status">
+      <ul>
+        <% for (let order of orders) { %>
+        <li>
+          <h2><%= order.custName %></h2>
+          <p><strong>Address:</strong> <%= order.deliveryAddr %></p>
+          <p><strong>Order Time:</strong> <%= order.orderTime %></p>
+
+          <p>
+            <strong>Order Total:</strong> <% for (let item of orders) { %> <%=
+            item.itemsOrdered._id %> <% } %>
+          </p>
+          <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
+
+          <p><strong>Driver:</strong> <%= order.itemsOrdered._id %></p>
+          <p>
+            <strong>License Plate:</strong> <%= order.driver_license_plate %>
+          </p>
+        </li>
+        <% } %>
+      </ul>
+      <a href="/manage"><button>Back to Manage Orders</button></a>
+    </div>
+    <footer>
+      <div class="social-icons">
+        <div>F</div>
+        <div>X</div>
+        <div>Y</div>
+      </div>
+      <div>&copy; Bhansa Ghar Restaurant</div>
+    </footer>
   </body>
 </html>

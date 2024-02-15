@@ -9,6 +9,7 @@ const ordersSchema = new Schema({
   itemsOrdered: Array,
   orderTime: Date,
   orderStatus: String,
+  menu: [{ type: mongoose.Schema.Types.ObjectId, ref: "menu_item_collection" }],
 });
 
 const Order = mongoose.model("order_collection", ordersSchema);

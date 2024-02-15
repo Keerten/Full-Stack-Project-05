@@ -36,11 +36,6 @@ var storage = multer.diskStorage({
 });
 
 const router = require("./routes/index.js");
-const restaurantRouter = require("./routes/restaurant");
-const orderRouter = require("./routes/order");
-const deliveryRouter = require("./routes/delivery");
-
-// app.use(router.routes());
 
 app.use(router);
 
