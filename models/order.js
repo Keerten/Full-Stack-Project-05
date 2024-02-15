@@ -9,7 +9,7 @@ const ordersSchema = new Schema({
   itemsOrdered: Array,
   orderTime: Date,
   orderStatus: String,
-  driver: { type: Schema.Types.ObjectId, ref: "drivers" },
+  deliveredBy: String,
 });
 
 const Order = mongoose.model("order_collection", ordersSchema);

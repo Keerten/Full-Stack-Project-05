@@ -5,7 +5,7 @@ const Driver = require("../../models/driver");
 
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find().populate("driver");
+    const orders = await Order.find();
     console.log(orders);
     return res.render("manage", { orders });
   } catch (err) {
@@ -27,7 +27,7 @@ router.post("/update_status", async (req, res) => {
 });
 
 router.get("/completed_orders", async (req, res) => {
-  const orders = await Order.find({ orderStatus: "delivered" });
+  const orders = await Order.find({ orderStatus: "DELIVERED" });
   return res.render("completed_orders", { orders });
 });
 

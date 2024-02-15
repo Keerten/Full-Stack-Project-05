@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>Restaurant Management</title>
+    <script
+      src="https://kit.fontawesome.com/27e9e6daeb.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="/styles.css" type="text/css" />
   </head>
   <body>
@@ -26,13 +30,15 @@
         <button type="submit">Search</button>
       </form>
       <a href="/manage/completed_orders/">
-        <button>Completed Orders</button>
+        <button>Delivered Orders</button>
       </a>
     </div>
 
     <div class="order-status">
       <ul>
-        <% for (let order of orders) { %>
+        <% if (orders.length === 0) { %>
+        <li><p>There are no orders yet!</p></li>
+        <% } else { %> <% for (let order of orders) { %>
         <li>
           <h2><%= order.custName %></h2>
           <p><strong>Address:</strong> <%= order.deliveryAddr %></p>
@@ -55,22 +61,27 @@
             <button type="submit">Update</button>
           </form>
           <% if (order.orderStatus === 'IN TRANSIT') { %>
-          <p>
-            <strong>Driver:</strong>
-          </p>
+          <p><strong>Driver:</strong> <%= order.deliveredBy %></p>
           <p>
             <strong>Driver's License Plate:</strong>
           </p>
 
           <% } %> <% } %>
         </li>
+        <% } %>
       </ul>
     </div>
     <footer>
       <div class="social-icons">
-        <div>F</div>
-        <div>X</div>
-        <div>Y</div>
+        <div>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div>&copy; Bhansa Ghar Restaurant</div>
     </footer>

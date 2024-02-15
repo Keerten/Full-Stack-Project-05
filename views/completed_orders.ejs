@@ -2,6 +2,10 @@
 <html>
   <head>
     <title>Completed Orders</title>
+    <script
+      src="https://kit.fontawesome.com/27e9e6daeb.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="/completed.css" type="text/css" />
   </head>
   <body>
@@ -29,14 +33,15 @@
 
           <p>
             <strong>Order Total:</strong> <% let total = 0; for (let item of
-            order.itemsOrdered) { total += item.price; }%> <%= total %>
+            order.itemsOrdered) { total += item.price; } %> $<%= total %>
           </p>
           <p><strong>Order Status:</strong> <%= order.orderStatus %></p>
 
-          <p><strong>Driver:</strong> <%= order.itemsOrdered._id %></p>
-          <p>
-            <strong>License Plate:</strong> <%= order.driver_license_plate %>
-          </p>
+          <% if (order.orderStatus === 'DELIVERED') { %>
+          <p><strong>Driver:</strong> <%= order.deliveredBy %></p>
+          <p><strong>Driver's License Plate:</strong></p>
+
+          <% } %>
         </li>
         <% } %>
       </ul>
@@ -45,11 +50,17 @@
     </div>
     <footer>
       <div class="social-icons">
-        <div>F</div>
-        <div>X</div>
-        <div>Y</div>
+        <div>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
-      <div>&copy; Bhansa Ghar Restaurant</div>
+      <div class="copyright">&copy; Bhansa Ghar Restaurant</div>
     </footer>
   </body>
 </html>
