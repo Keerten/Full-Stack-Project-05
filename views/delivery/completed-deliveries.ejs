@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open Deliveries</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+      }
+      main {
+        display: flex;
+      }
+      nav {
+        flex: 1;
+        height: 7.5vh;
+        background-color: #ff6400;
+        color: #ffffff;
+        position: sticky;
+        top: 0;
+      }
+      div {
+      }
+      .sidebar {
+        background-color: #ff660087;
+        color: #ffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: stretch;
+        /* align-items: center; */
+        flex: 1;
+        position: sticky;
+        top: 7.5vh; /* same as nav's height */
+        height: 92.5vh;
+        padding: 10px 10px 0 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        padding: 0 10%;
+        margin: 1% 0;
+        font-weight: bold;
+        font-size: large;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border: 1px solid #ffd7bc;
+        border-radius: 15px;
+      }
+
+      a:hover {
+        background-color: #ffd7bc;
+        border-radius: 15px;
+        color: #ff6400;
+      }
+      a.active {
+        background-color: #ffd7bc;
+        border-radius: 30px;
+        color: #ff6400;
+      }
+
+      .main-wrapper {
+        flex: 4;
+        overflow-y: scroll;
+        scrollbar-color: none;
+        padding: 10px;
+        color: #ff6400;
+        text-align: justify;
+      }
+
+      img {
+        height: 40px;
+        width: 40px;
+      }
+      table {
+        width: 85%;
+        padding: 2%;
+        margin: 5%;
+        border: 1px solid #ff6400;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px #ff6400;
+      }
+    </style>
+  </head>
+  <body>
+    <nav></nav>
+    <main>
+      <div class="sidebar">
+        <h2>Hello <%= user.name %></h2>
+        <a href="/delivery"
+          ><img src="open-order.png" alt="Open Order" />
+          <p>Open Orders</p></a
+        >
+        <a href="/delivery/ongoing-delivery">
+          <img src="motorbike.png" alt="Ongoing Delivery" />
+          <p>Ongoing Delivery</p></a
+        >
+
+        <a class="active" href="/delivery/my-deliveries"
+          ><img src="delivery.png" alt="My Deliveries" />
+          <p>My Deliveries</p></a
+        >
+      </div>
+      <div class="main-wrapper">
+        <% if (messages.error) { %>
+        <div class="error"><%= messages.error %></div>
+        <% } %> <% if (messages.success) { %>
+        <div class="success"><%= messages.success %></div>
+        <% } %>
+        <table>
+          <tr>
+            <th>Customer Name</th>
+            <th>Delivery Address</th>
+            <th>Total Number of Items</th>
+            <th>Order Time</th>
+            <th>Submitted image</th>
+          </tr>
+
+          <% if (orders.length === 0) { %>
+          <tr>
+            <td>You have not delivered anything Yet!!!</td>
+          </tr>
+          <% } else { %> <% for(const order of orders){ %>
+          <tr>
+            <td><%= order.custName %></td>
+            <td><%= order.deliveryAddr %></td>
+            <td><%= order.itemsOrdered.length %></td>
+            <td><%= new Date(order.orderTime).toLocaleString() %></td>
+            <td>
+              <img
+                src="<%= order.proof %>"
+                alt="proof"
+                height="50px"
+                width="50px"
+              />
+            </td>
+          </tr>
+          <% } %> <% } %>
+        </table>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>

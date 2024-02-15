@@ -3,17 +3,9 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 
-
 // Define a schema
 const Schema = mongoose.Schema;
 
-const ordersSchema = new Schema({
-  custName: String,
-  deliveryAddr: String,
-  itemsOrdered: Array,
-  orderTime: Date,
-  orderStatus: String,
-});
 
 const menuItemsSchema = new Schema({
   name: String,
@@ -23,7 +15,7 @@ const menuItemsSchema = new Schema({
 });
 
 // Compile model from schema
-const orderData = mongoose.model("order_collection", ordersSchema);
+const orderData = require('../../models')
 const menuItem = mongoose.model("menu_item_collection", menuItemsSchema);
 
 
@@ -41,6 +33,7 @@ router.get("/", async (req, res) => {
 // Create order route
 router.post("/order", async (req, res) => {
   const time = new Date();
+
 
  const itemsOrdered = Array.isArray(req.body.orderItem)
  ? req.body.orderItem
@@ -92,6 +85,7 @@ router.get("/order-completed", async (req, res) => {
   catch(error){
     res.render("order-completed", {order: null, error:`Sorry! Error making the order! ${error}`});
   }
+
 });
 
 router.post("/check-status", async (req, res) => {
