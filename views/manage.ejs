@@ -65,7 +65,11 @@
           <p>
             <strong>Driver's License Plate:</strong>
           </p>
-
+          <% } %> <% if (order.orderStatus === 'DELIVERED') { %>
+          <p>
+            <strong>Delivered Photo:</strong>
+          </p>
+          <img src="path(tobedone)" alt="Delivered" />
           <% } %> <% } %>
         </li>
         <% } %>
