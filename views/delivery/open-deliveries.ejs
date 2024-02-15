@@ -84,10 +84,20 @@
         border-radius: 10px;
         box-shadow: 5px 5px 5px #ff6400;
       }
+      li {
+        padding: 10px;
+        margin: 0, 15px;
+      }
     </style>
   </head>
   <body>
-    <nav></nav>
+    <nav>
+      <ul type="none" style="display: flex; justify-content: end">
+        <li><a href="/">Home</a></li>
+        <li><a href="/delivery/login">Login</a></li>
+        <li><a href="/delivery/register">Register</a></li>
+      </ul>
+    </nav>
     <main>
       <div class="sidebar">
         <h2>Hello <%= user.name %></h2>
@@ -131,7 +141,10 @@
             <td><%= order.itemsOrdered.length %></td>
             <td><%= new Date(order.orderTime).toLocaleString() %></td>
             <td>
-              <a href="/delivery/open-deliveries/accept/<%= order._id  %>" style="color: rgb(84, 139, 0);">Accept Delivery</a
+              <a
+                href="/delivery/open-deliveries/accept/<%= order._id  %>"
+                style="color: rgb(84, 139, 0)"
+                >Accept Delivery</a
               >
             </td>
           </tr>
