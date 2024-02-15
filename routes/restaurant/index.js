@@ -1,31 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
-
-
-
-// Define a schema
-const Schema = mongoose.Schema;
-
-const ordersSchema = new Schema({
-  custName: String,
-  deliveryAddr: String,
-  itemsOrdered: Array,
-  orderTime: Date,
-  orderStatus: String,
-});
-
-const menuItemsSchema = new Schema({
-  name: String,
-  imgURI: String,
-  description: String,
-  price: Number,
-});
-
-// Compile model from schema
-const orderData = mongoose.model("order_collection", ordersSchema);
-const menuItem = mongoose.model("menu_item_collection", menuItemsSchema);
-
+const orderData = require("../../models/order");
+const menuItem = require("../../models/menu");
 
 // Create home route
 router.get("/", async (req, res) => {
@@ -75,4 +51,4 @@ router.post("/check-status", async (req, res) => {
   }
 });
 
-module.exports =  router;
+module.exports = router;
