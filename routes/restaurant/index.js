@@ -6,13 +6,6 @@ const mongoose = require("mongoose");
 // Define a schema
 const Schema = mongoose.Schema;
 
-const ordersSchema = new Schema({
-  custName: String,
-  deliveryAddr: String,
-  itemsOrdered: Array,
-  orderTime: Date,
-  orderStatus: String,
-});
 
 const menuItemsSchema = new Schema({
   name: String,
@@ -22,7 +15,7 @@ const menuItemsSchema = new Schema({
 });
 
 // Compile model from schema
-const orderData = mongoose.model("order_collection", ordersSchema);
+const orderData = require('../../models')
 const menuItem = mongoose.model("menu_item_collection", menuItemsSchema);
 
 
@@ -52,6 +45,9 @@ router.post("/order", async (req, res) => {
     orderTime: time,
     orderStatus: "RECEIVED",
   };
+
+
+  new orderData(orderDetails).save()
   res.send(JSON.stringify(orderDetails));
 });
 
