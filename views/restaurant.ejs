@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bhansa Ghar - Nepali Food Restaurant</title>
+    <script
+      src="https://kit.fontawesome.com/27e9e6daeb.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
       body {
         font-family: "Arial", sans-serif;
@@ -30,7 +34,7 @@
       nav {
         display: flex;
         justify-content: space-around;
-        background-color: #e74c3c; /* Dark orange navigation bar */
+        background-color: #e74c3c;
         padding: 0.5em;
       }
 
@@ -43,7 +47,7 @@
       }
 
       nav a:hover {
-        background-color: #64170f; /* Lighter orange on hover */
+        background-color: #64170f;
       }
 
       .top-section {
@@ -59,7 +63,7 @@
         padding: 1em;
         background-color: white;
         border: 2px solid #f2c8b9;
-        border-radius: 12px; /* Rounder corners */
+        border-radius: 12px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         text-align: center;
         transition: transform 0.3s;
@@ -90,45 +94,40 @@
         color: #888;
       }
 
-      .item{
+      .item {
         display: flex;
         justify-content: flex-start;
       }
 
-.checkbox-container input[type="checkbox"] {
-
-  width: 20px;
-  
-}
+      .checkbox-container input[type="checkbox"] {
+        width: 20px;
+      }
 
       form {
         margin: 2em;
         text-align: center;
-        background-color: #e74c3c; /* Red form background */
+        background-color: #e74c3c;
         padding: 1em;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       }
 
-
-.order{
-    display: flex;
-    align-items: center;
+      .order {
+        display: flex;
+        align-items: center;
         justify-content: center;
-}
+      }
       .order-section {
         padding: 15px;
         display: flex;
-           flex-direction: column;
+        flex-direction: column;
         width: 35%;
-        
-        
       }
 
       .order-section img {
         border: 1px solid #ddd;
         border-radius: 4px;
-         padding: 5px;
+        padding: 5px;
         width: 80%;
       }
 
@@ -146,28 +145,29 @@
       }
 
       form input,
-      form select, form button {
+      form select,
+      form button {
         padding: 8px;
         font-size: 18px;
-        border: 3px solid #f2c8b9; /* Coral border */
+        border: 3px solid #f2c8b9;
         border-radius: 3px;
       }
 
       form button {
-        background-color: #64170f; /* Dark orange button */
+        background-color: #64170f;
         color: white;
         cursor: pointer;
         transition: background-color 0.3s;
       }
 
       form button:hover {
-        background-color: #e67e22; /* Lighter orange on hover */
+        background-color: #e67e22;
       }
 
       footer {
         display: flex;
         justify-content: space-between;
-        background-color: #64170f; /* Dark orange footer */
+        background-color: #64170f;
         color: white;
         padding: 1em;
         bottom: 0;
@@ -177,18 +177,16 @@
         display: flex;
       }
 
-      .social-icons div {
-        color: #3498db; /* Blue F icon */
+      .social-icons a {
         margin-right: 10px;
-      }
-
-      .social-icons span {
-        color: #fff; /* White X icon */
-        margin-right: 10px;
+        padding: 5px;
+        text-decoration: none;
+        color: azure;
+        cursor: pointer;
       }
 
       .social-icons a:hover {
-        color: #c0392b;
+        background-color: #e67e22;
       }
 
       .location-section,
@@ -226,57 +224,58 @@
 
     <nav>
       <a href="#">Home</a>
-      <a href="#">Order Status</a>
+      <a href="#check-order">Order Status</a>
       <a href="#">About Us</a>
       <a href="#">Careers</a>
     </nav>
     <h2 class="title">Menu Items</h2>
     <section class="top-section">
-      <% menuItems.forEach((menuItem) => { %>
+      <% for (const menuItem of menuItems) { %>
       <div class="menu-item">
         <img src="<%= menuItem.imgURI %>" alt="<%= menuItem.name %>" />
         <p class="menu-name">~<%= menuItem.name %>~</p>
         <p class="description"><%= menuItem.description %></p>
         <span>Price: $<%= menuItem.price.toFixed(2) %></span>
       </div>
-      <% }) %>
+      <% } %>
     </section>
     <h2 class="title">Make an Order</h2>
     <form action="/order" method="post">
-             <div class="order"> 
-      <div class="order-section">
-        <!-- <select id="orderItem" name="orderItem">
-          <% menuItems.forEach((menuItem) => { %>
-          <option value="<%= menuItem.id %>">
-            <%= menuItem.name %> - $<%= menuItem.price.toFixed(2) %>
-          </option>
-          <% }) %>
-        </select> -->
-        <label>Select Item(s) to Order:</label>
-  <% menuItems.forEach((menuItem) => { %>
-    <div class="item checkbox-container">
-      <input type="checkbox" id="<%= menuItem.id %>" name="orderItem" value="<%= menuItem.id %>">
-      <label for="<%= menuItem.id %>">
-        <%= menuItem.name %> - $<%= menuItem.price.toFixed(2) %>
-      </label>
-    </div>
-  <% }) %>
+      <div class="order">
+        <div class="order-section">
+          <label>Select Item(s) to Order:</label>
+          <% for (const menuItem of menuItems) { %>
+          <div class="item checkbox-container">
+            <input
+              type="checkbox"
+              id="<%= menuItem.id %>"
+              name="orderItem"
+              value="<%= menuItem.id %>"
+            />
+            <label for="<%= menuItem.id %>">
+              <%= menuItem.name %> - $<%= menuItem.price.toFixed(2) %>
+            </label>
+          </div>
+          <% } %>
 
-        <label for="customerName">Your Name:</label>
-        <input type="text" id="customerName" name="customerName" required />
+          <label for="customerName">Your Name:</label>
+          <input type="text" id="customerName" name="customerName" required />
 
-        <label for="customerAddress">Your Address:</label>
-        <input
-          type="text"
-          id="customerAddress"
-          name="customerAddress"
-          required
-        />
+          <label for="customerAddress">Your Address:</label>
+          <input
+            type="text"
+            id="customerAddress"
+            name="customerAddress"
+            required
+          />
+        </div>
+        <div class="order-section">
+          <img
+            src="https://media.istockphoto.com/id/990557050/vector/order-now-banner-badge-icon-vector-illustration-business-concept-order-now-pictogram.jpg?s=612x612&w=0&k=20&c=cLp_Yl5pDXL6a8m7IKVQhGXhUgMs9KGmX-9MpWUd9s4="
+            alt=""
+          />
+        </div>
       </div>
-      <div class="order-section">
-        <img src="https://media.istockphoto.com/id/990557050/vector/order-now-banner-badge-icon-vector-illustration-business-concept-order-now-pictogram.jpg?s=612x612&w=0&k=20&c=cLp_Yl5pDXL6a8m7IKVQhGXhUgMs9KGmX-9MpWUd9s4=" alt="">
-      </div>
-    </div>
       <button type="submit">Place Order</button>
     </form>
 
@@ -294,7 +293,7 @@
       </div>
     </section>
 
-    <div class="check-order-section">
+    <div class="check-order-section" id="check-order">
       <h2 class="title">Check Order Status</h2>
       <form action="/check-status" method="post">
         <label for="orderId">Enter Order ID:</label>
@@ -305,9 +304,15 @@
 
     <footer>
       <div class="social-icons">
-        <div>F</div>
-        <div>X</div>
-        <div>Y</div>
+        <div>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+        <div>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
       <div>&copy; Bhansa Ghar Restaurant</div>
     </footer>
