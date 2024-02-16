@@ -10,6 +10,7 @@ const ordersSchema = new Schema({
   orderTime: Date,
   orderStatus: String,
   deliveredBy: String,
+  proof: String,
 });
 
 const Order = mongoose.model("order_collection", ordersSchema);
